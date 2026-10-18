@@ -50,6 +50,14 @@ const wizardSteps = [
   { key: 'review', label: 'المراجعة النهائية' }
 ];
 
+const escapeHtml = (value) =>
+  String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
 const fillSelect = (select, options, placeholder) => {
   select.innerHTML = '';
   const defaultOption = document.createElement('option');
@@ -130,10 +138,10 @@ const renderWizardStep = () => {
   if (current.key === 'deviceInfo') {
     wizardContent.innerHTML = `
       <label>اسم الجهاز
-        <input name="deviceName" value="${state.form.deviceName}" placeholder="مثال: شبكة المنزل" />
+        <input name="deviceName" value="${escapeHtml(state.form.deviceName)}" placeholder="مثال: شبكة المنزل" />
       </label>
       <label>موقع التركيب
-        <input name="installLocation" value="${state.form.installLocation}" placeholder="مثال: الدور الثاني" />
+        <input name="installLocation" value="${escapeHtml(state.form.installLocation)}" placeholder="مثال: الدور الثاني" />
       </label>`;
   }
 
@@ -164,7 +172,7 @@ const renderWizardStep = () => {
       ${
         supported.lan
           ? `<label>عنوان LAN IP
-              <input name="lanIp" value="${state.form.lanIp}" placeholder="192.168.1.1" />
+              <input name="lanIp" value="${escapeHtml(state.form.lanIp)}" placeholder="192.168.1.1" />
             </label>`
           : ''
       }
@@ -178,7 +186,7 @@ const renderWizardStep = () => {
     wizardContent.innerHTML = supported.wifi
       ? `
       <label>اسم الشبكة (SSID)
-        <input name="ssid" value="${state.form.ssid}" placeholder="EasyNet-WiFi" />
+        <input name="ssid" value="${escapeHtml(state.form.ssid)}" placeholder="EasyNet-WiFi" />
       </label>
       <label>نطاقات Wi‑Fi المدعومة
         <input value="${supported.wifiBands.join('، ')}" disabled />
@@ -196,7 +204,7 @@ const renderWizardStep = () => {
         </select>
       </label>
       <label>كلمة مرور Wi‑Fi
-        <input name="wifiPassword" value="${state.form.wifiPassword}" type="password" placeholder="8 أحرف أو أكثر" />
+        <input name="wifiPassword" value="${escapeHtml(state.form.wifiPassword)}" type="password" placeholder="8 أحرف أو أكثر" />
       </label>
       <p class="status">تنبيه: لا تدخل كلمة مرور لوحة الإدارة هنا.</p>`
       : '<p class="status">خطوة الأمان غير مطلوبة بدون Wi‑Fi.</p>';
@@ -238,13 +246,14 @@ const renderWizardStep = () => {
 
     wizardContent.innerHTML = `
       <div class="summary">
-        <pre>${JSON.stringify(summary, null, 2)}</pre>
+        <pre id="summaryOutput"></pre>
       </div>
       <div class="wizard-actions">
         <button id="copyConfig" type="button" class="secondary">نسخ الملخص</button>
         <button id="downloadConfig" type="button" class="secondary">تنزيل JSON</button>
       </div>
       <p class="status">هذه النتيجة للنسخ أو التصدير فقط، ولا تُطبّق تلقائياً على الجهاز.</p>`;
+    wizardContent.querySelector('#summaryOutput').textContent = JSON.stringify(summary, null, 2);
 
     wizardContent.querySelector('#copyConfig')?.addEventListener('click', async () => {
       try {
