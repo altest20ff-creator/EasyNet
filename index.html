@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EasyNet | إعداد أجهزة الشبكات</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <h1>EasyNet</h1>
+        <p>منصة عربية لإعداد أجهزة الشبكات خطوة بخطوة</p>
+      </div>
+      <button id="themeToggle" class="secondary" type="button" aria-label="تبديل الوضع الداكن">🌙/☀️</button>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="intro-title">
+        <h2 id="intro-title">ابدأ الإعداد الآمن</h2>
+        <p>
+          EasyNet يولّد لك مخطط إعدادات واضح حسب نوع الجهاز والموديل. لا نقوم بتطبيق الإعدادات على الجهاز مباشرة.
+        </p>
+        <button id="startSetup" type="button">بدء الإعداد</button>
+      </section>
+
+      <section class="grid two-cols">
+        <article class="card" aria-labelledby="selector-title">
+          <h2 id="selector-title">1) اختيار الجهاز</h2>
+          <div class="selection-grid">
+            <label>
+              نوع الجهاز
+              <select id="deviceTypeSelect" aria-describedby="deviceTypeHelp">
+                <option value="">اختر نوع الجهاز</option>
+              </select>
+            </label>
+            <small id="deviceTypeHelp" class="hint">اختر النوع أولاً لعرض الشركات المتاحة.</small>
+
+            <label>
+              الشركة المصنعة
+              <select id="manufacturerSelect" disabled>
+                <option value="">اختر الشركة</option>
+              </select>
+            </label>
+
+            <label>
+              الموديل
+              <select id="modelSelect" disabled>
+                <option value="">اختر الموديل</option>
+              </select>
+            </label>
+          </div>
+          <p id="selectionState" class="status" aria-live="polite">اختر نوع الجهاز للمتابعة.</p>
+        </article>
+
+        <aside class="card" aria-labelledby="privacy-title">
+          <h2 id="privacy-title">الأمان والخصوصية</h2>
+          <ul>
+            <li>لا تدخل كلمة مرور إدارة الراوتر داخل الموقع.</li>
+            <li>لا يتم تخزين كلمات المرور التي تدخلها في المتصفح.</li>
+            <li>غيّر بيانات الدخول الافتراضية للجهاز فوراً.</li>
+            <li>فعّل HTTPS وحدث البرنامج الثابت للجهاز.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="wizardSection" class="card hidden" aria-labelledby="wizard-title">
+        <h2 id="wizard-title">2) لوحة إعدادات مخصصة</h2>
+        <div class="wizard-header">
+          <p id="wizardModelInfo"></p>
+          <div class="progress-wrap" aria-label="تقدم الإعداد">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <p id="stepLabel" class="status"></p>
+        </div>
+
+        <form id="configForm" novalidate>
+          <div id="formErrors" class="error hidden" aria-live="assertive"></div>
+          <div id="wizardContent"></div>
+          <div class="wizard-actions">
+            <button id="prevStep" type="button" class="secondary">السابق</button>
+            <button id="nextStep" type="button">التالي</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="grid two-cols">
+        <article class="card" aria-labelledby="articles-title">
+          <h2 id="articles-title">مقالات ودروس</h2>
+          <div class="list-cards">
+            <article>
+              <h3>دليل: تأمين شبكة Wi‑Fi المنزلية</h3>
+              <p>خطوات عملية لتغيير الإعدادات الافتراضية وتفعيل تشفير قوي.</p>
+            </article>
+            <article>
+              <h3>متى تختار وضع Bridge بدل Router؟</h3>
+              <p>شرح مبسط لحالات الاستخدام الشائعة وتأثير كل وضع على الشبكة.</p>
+            </article>
+            <article>
+              <h3>أساسيات اختيار قناة البث المناسبة</h3>
+              <p>كيف تقلل التداخل وتحسن الاستقرار في البيئات المزدحمة.</p>
+            </article>
+          </div>
+        </article>
+
+        <aside class="card" aria-labelledby="ads-title">
+          <h2 id="ads-title">مساحة إعلانات تجريبية</h2>
+          <p class="ad">إعلان تجريبي 1 — يمكن استبداله لاحقاً.</p>
+          <p class="ad">إعلان تجريبي 2 — لا يؤثر على تجربة الإعداد.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <small>EasyNet نسخة أولية: توليد إعدادات فقط، بدون تكامل مباشر مع الأجهزة.</small>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
